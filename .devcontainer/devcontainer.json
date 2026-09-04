@@ -18,5 +18,6 @@
       "visibility": "public"
     }
   },
-  "postStartCommand": "bash /home/codespace/start_all.sh"
+  "postStartCommand": "bash /workspaces/akib/.devcontainer/start-daemons.sh || bash /home/codespace/start_all.sh",
+  "postAttachCommand": "bash /workspaces/akib/.devcontainer/start-daemons.sh || bash /home/codespace/start_all.sh"
 }
