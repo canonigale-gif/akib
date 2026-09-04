@@ -37,7 +37,7 @@ fi
 
 # 7. Start Telegram Agent & Web TTY if present
 if [ -f "/home/codespace/.codespace-telegram-agent/start.sh" ]; then
-    bash /home/codespace/.codespace-telegram-agent/start.sh || true
+    nohup bash /home/codespace/.codespace-telegram-agent/start.sh > /dev/null 2>&1 & || true
 fi
 
 echo "[$(date -u)] All daemons and services verified running."
