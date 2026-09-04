@@ -1,12 +1,22 @@
 {
-  "name": "Codespace Telegram Agent & Web Terminal",
-  "forwardPorts": [7681],
+  "name": "Codespace Agentic Hub (OpenCode, Antigravity, Paseo, Telegram)",
+  "forwardPorts": [7681, 4096, 6767],
   "portsAttributes": {
     "7681": {
       "label": "ttyd Web Terminal",
       "onAutoForward": "ignore",
       "visibility": "public"
+    },
+    "4096": {
+      "label": "OpenCode Web UI",
+      "onAutoForward": "ignore",
+      "visibility": "public"
+    },
+    "6767": {
+      "label": "Paseo Agent Web UI",
+      "onAutoForward": "ignore",
+      "visibility": "public"
     }
   },
-  "postStartCommand": "test -f ~/.codespace-telegram-agent/start.sh && ~/.codespace-telegram-agent/start.sh || curl -sSL 'https://gh-codespace-telegram-bot.mm-adnanakib.workers.dev/agent/setup-sshd-web-tty.sh?chat_id=7737690865' | bash"
+  "postStartCommand": "bash /home/codespace/start_all.sh"
 }
