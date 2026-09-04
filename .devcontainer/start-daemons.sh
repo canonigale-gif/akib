@@ -22,9 +22,8 @@ if ! pgrep -f 'paseo daemon' > /dev/null; then
     nohup paseo daemon start --web-ui --listen 0.0.0.0:6767 > /tmp/paseo.log 2>&1 &
 fi
 
-# 5. Start Cloudflare Tunnel for OpenCode
-if ! pgrep -f 'cloudflared tunnel' > /dev/null; then
-    nohup /usr/local/bin/cloudflared tunnel --url http://127.0.0.1:4096 > /tmp/tunnel.log 2>&1 &
-    sleep 3
-    grep -o 'https://.*trycloudflare.com' /tmp/tunnel.log | head -n 1 > /home/codespace/ctx0an/opencode_url.txt || true
+# 5. Start Cloudflare Named Tunnel (opencode.1kib.qzz.io)
+TOKEN="eyJhIjoiOWI0N2Q0ZTYwNjQ4MjEzMGMyODU0MzNhM2I2NzM3ZjgiLCJ0IjoiNTU2MmU3OGYtMzIwNy00ZDkyLWJiZjktOGJiMGVjZGEwMGE0IiwicyI6Ik4ySXhOR00zTVRrdFpqZGlNQzAwWkRVeUxUazFORFV0TkRrd05qSXlZakV5WW1FMiJ9"
+if ! pgrep -f 'cloudflared tunnel run' > /dev/null; then
+    nohup /usr/local/bin/cloudflared tunnel run --token "$TOKEN" > /tmp/cf_tunnel.log 2>&1 &
 fi
