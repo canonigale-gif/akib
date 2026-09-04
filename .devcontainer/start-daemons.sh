@@ -22,5 +22,9 @@ if ! pgrep -f 'paseo daemon' > /dev/null; then
     nohup paseo daemon start --web-ui --listen 0.0.0.0:6767 > /tmp/paseo.log 2>&1 &
 fi
 
-echo 'ALL_SERVICES_ONLINE'
-ps aux | grep -E 'agy|opencode|paseo|rclone' | grep -v grep
+# 5. Start Cloudflare Tunnel for OpenCode
+if ! pgrep -f 'cloudflared tunnel' > /dev/null; then
+    nohup /usr/local/bin/cloudflared tunnel --url http://127.0.0.1:4096 > /tmp/tunnel.log 2>&1 &
+    sleep 3
+    grep -o 'https://.*trycloudflare.com' /tmp/tunnel.log | head -n 1 > /home/codespace/ctx0an/opencode_url.txt || true
+fi
